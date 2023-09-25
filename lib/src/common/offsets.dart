@@ -1,13 +1,13 @@
 part of kafka.common;
 
 Map<dynamic, dynamic> groupBy(Iterable list, f(element)) {
-  var grouped = new Map();
+  Map<String, List<ConsumerOffset>> grouped = {};
   for (var e in list) {
     var key = f(e);
     if (!grouped.containsKey(key)) {
       grouped[key] = [];
     }
-    grouped[key].add(e);
+    grouped[key]?.add(e);
   }
 
   return grouped;
@@ -21,5 +21,6 @@ class ConsumerOffset {
   final String metadata;
   final int? errorCode;
 
-  ConsumerOffset(this.topicName, this.partitionId, this.offset, this.metadata, [this.errorCode]);
+  ConsumerOffset(this.topicName, this.partitionId, this.offset, this.metadata,
+      [this.errorCode]);
 }
